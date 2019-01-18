@@ -1,0 +1,24 @@
+task wiremockStub ( type: Zip ){
+
+    archiveName 'app-stub.zip'
+    dependsOn configurations.testCompile
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    includeEmptyDirs = false
+
+    //Jar
+    from(configurations.testCompile.filter( { (it.name=~ /wiremock.*\.jar/ )}))
+    rename 'wiremock(.*).jar', 'wiremock.jar'
+
+
+
+}
+
+configurations{
+    wiremock
+}
+
+dependencies {
+    wiremock 'com.github.tomakehurst:wiremock:2.8.0'
+    wiremock 'commons-logging:commons-logging:1.2'
+}
